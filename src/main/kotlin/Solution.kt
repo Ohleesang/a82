@@ -70,30 +70,50 @@
 
 
 class Solution {
+    /*
+    //재귀함수 이용
     fun comb(n :Int,r:Int):Int{
         var answer = 0
         if(n == r || r ==0) return 1
         answer = comb(n-1,r-1)+comb(n-1,r)
         return answer
     }
-    fun solution(n: Int): Long {
+     */
+    //팩토리얼 이용
+    fun fact(n:Int):Long{
+        if(n<=1) return 1
+        else return n*fact(n-1)
+    }
+    fun solution(z: Int): Long {
         var answer: Long = 0
         var maps = mutableMapOf<Int,Int>()
         //[1의갯수,2의갯수] 의 모든 경우의수
         var x = 0
         var y = 0
-        for(j in 0..n/2){
-            x = n-2*j
+        for(j in 0..z/2){
+            x = z-2*j
             y = j
             maps.put(x,y)
         }
+        var n = 0
+        var r = 0
+        var res = 0L
         maps.forEach{
             //계산된 값 answer에 입력
             /*
             if(it.key==0 || it.value ==0) answer ++
             else answer += (it.key + it.value).toLong()
             */
-            answer += comb(it.key+it.value,it.value)
+//            answer += comb(it.key+it.value,it.value)
+
+            n = it.key+it.value
+            r = it.value
+
+            if(fact(r)*fact(n-r)!=0L) {
+                res = fact(n) / (fact(r) * fact(n - r))
+            }
+            else res =1L
+            answer += res
         }
 
 
